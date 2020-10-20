@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mall.dao.ProductDao">
+    <resultMap id="propertMap" type="com.example.mall.model.entity.Product">
+        <id property="id" column="id" />
+        <result property="productName" column="product_name" />
+        <result property="productTitle" column="product_name" />
+        <result property="productPrice" column="product_name" />
+        <result property="productSalePrice" column="product_name" />
+        <result property="productIsenabled" column="product_name" />
+        <result property="productSaleCount" column="product_name" />
+        <result property="productReviewCount" column="product_name" />
+        <association property="productCategoryId" javaType="com.example.mall.model.entity.Category">
+            <id property="id" column="productCategoryId" />
+        </association>
+    </resultMap>
+</mapper>

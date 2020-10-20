@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mall.dao.UserDao">
+    <resultMap id="userMap" type="com.example.mall.model.vo.UserVO">
+        <id property="id" column="id" />
+        <result property="userName" column="user_name" />
+        <result property="userNickname" column="user_nickname" />
+        <result property="userPassword" column="user_password" />
+        <result property="userRealname" column="user_realname" />
+        <result property="userGender" column="user_gender" />
+        <result property="userBirthday" column="user_birthday" />
+        <result property="userProfilePictureSrc" column="user_profile_picture_src" />
+        <association property="userAddress" javaType="com.example.mall.model.entity.Address">
+            <id property="id" column="userAddress" />
+        </association>
+        <association property="userHomeplace" javaType="com.example.mall.model.entity.Address">
+            <id property="id" column="addHomeplace" />
+        </association>
+        <collection property="roles" ofType="com.example.mall.model.entity.Role">
+            <id column="roleid" property="id" />
+            <result column="rolename" property="name" />
+        </collection>
+    </resultMap>
+    <select id="selectByLogin" resultType="com.example.mall.model.entity.User">
+        SELECT id,user_name,user_nickname,user_password,user_realname,user_gender,user_birthday,user_profile_picture_src,user_address,user_homeplace
+                FROM user
+                ${ew.customSqlSegment}
+    </select>
+    <select id="getUserJoinRole" resultType="com.example.mall.model.vo.UserVO">
+        SELECT u.id userid, u.user_name, u.user_password, r.id roleid, r.name rolename
+        from user u
+                 left join user_role ur on u.id = ur.user_id
+                 left join role r on ur.role_id = r.id
+            ${ew.customSqlSegment}
+    </select>
+
+</mapper>
